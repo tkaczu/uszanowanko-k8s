@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wordpress-{{ .Values.environment }}
+spec:
+  replicas: {{ .Values.wordpress.replicas }}
+  template:
+    metadata:
+      labels:
+        app: wordpress-{{ .Values.environment }}
+    spec:
+      containers:
+      - name: wordpress
+        image: {{ .Values.wordpress.image }}
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: "wordpress-{{ .Values.environment }}-mysql"
+        - name: WORDPRESS_DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-{{ .Values.environment }}-config
+              key: db_user
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-{{ .Values.environment }}-config
+              key: db_password
+        resources:
+          requests:
+            cpu: {{ .Values.wordpress.requests.cpu }}
+            memory: {{ .Values.wordpress.requests.memory }}
+        ports:
+        - containerPort: {{ .Values.wordpress.port }}

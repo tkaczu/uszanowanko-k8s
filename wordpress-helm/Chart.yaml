@@ -1,0 +1,4 @@
+apiVersion: v1
+description: WP + MySQL on HELM
+name: wp-mysql
+version: 0.1.0

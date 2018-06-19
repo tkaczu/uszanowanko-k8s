@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-multi-config
+  namespace: up-k8s-example-three
+data:
+  db_user: root
+  db_password: example
+  db_name: wordpress

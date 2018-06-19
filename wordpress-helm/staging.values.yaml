@@ -1,0 +1,19 @@
+environment: staging
+db:
+  name: wordpress-staging
+  user: root
+  pass: staging-example
+mysql:
+  image: "mysql:5.5"
+  port: 3306
+wordpress:
+  replicas: 1
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  image: "wordpress:4.9.6-php5.6-apache"
+  port: 80
+  hpa:
+    min: 1
+    max: 4
+    target: 50

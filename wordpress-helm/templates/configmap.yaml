@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpress-{{ .Values.environment }}-config
+data:
+  db_user: {{ .Values.db.user }}
+  db_password: {{ .Values.db.pass }}
+  db_name: {{ .Values.db.name }}

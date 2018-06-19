@@ -1,0 +1,19 @@
+environment: prod
+db:
+  name: wordpress-prod
+  user: root
+  pass: prod-example
+mysql:
+  image: "mysql:5.7.21"
+  port: 3306
+wordpress:
+  replicas: 2
+  requests:
+    cpu: 300m
+    memory: 320Mi
+  image: "wordpress:4.9.6-php7.0-apache"
+  port: 80
+  hpa:
+    min: 2
+    max: 10
+    target: 40

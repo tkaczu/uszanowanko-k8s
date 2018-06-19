@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-multi-hpa-service
+  namespace: up-k8s-example-four
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    name: http
+  type: LoadBalancer
+  selector:
+    app: wordpress-multi-hpa

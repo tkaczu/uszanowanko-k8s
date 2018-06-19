@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wordpress-{{ .Values.environment }}-mysql
+spec:
+  template:
+    metadata:
+      labels:
+        app: wordpress-{{ .Values.environment }}-mysql
+    spec:
+      containers:
+      - name: mysql
+        image: {{ .Values.mysql.image }}
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-{{ .Values.environment }}-config
+              key: db_password
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: wordpress-{{ .Values.environment }}-config
+              key: db_name
+        ports:
+        - containerPort: {{ .Values.mysql.port }}
